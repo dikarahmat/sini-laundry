@@ -29,10 +29,11 @@ Daftar pekerjaan berurutan. Centang `[x]` kalau sudah selesai. Kerjakan dari ata
 
 ## Tahap 2: Master Data (P0)
 
-- [ ] **T2.1** CRUD layanan (nama, satuan, harga, estimasi jam, aktif/nonaktif) `A`
-- [ ] **T2.2** Halaman kelola layanan untuk owner `B`
+- [x] **T2.1** CRUD layanan (nama, satuan, harga, estimasi jam, aktif/nonaktif) `A`
+- [x] **T2.2** Halaman kelola layanan untuk owner `B`
 - [ ] **T2.3** CRUD pelanggan untuk admin (termasuk pelanggan walk-in tanpa akun) `A`
-- [ ] **T2.4** Pengaturan harga Express (persentase tambahan) `A`
+- [x] **T2.4** Pengaturan harga Express (persentase tambahan) `A`
+  - Catatan: `config/laundry.php` (express_surcharge_percent, min_weight_kg); antarmuka pengaturan Fase 2.
 
 ## Tahap 3: Pesanan (P0)
 

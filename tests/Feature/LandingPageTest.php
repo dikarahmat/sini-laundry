@@ -11,6 +11,8 @@ class LandingPageTest extends TestCase
 
     public function test_landing_page_menampilkan_konten_sini_laundry(): void
     {
+        $this->seed(\Database\Seeders\ServiceSeeder::class);
+
         $response = $this->get(route('home'));
 
         $response->assertOk()

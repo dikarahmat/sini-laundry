@@ -15,6 +15,14 @@
         @vite(['resources/css/app.css', 'resources/js/app.js'])
     </head>
     <body class="min-h-screen bg-surface font-sans text-ink-900 antialiased">
+        @php
+            // Layanan aktif untuk ditampilkan di landing page (P5).
+            $services = \App\Models\Service::query()
+                ->where('is_active', true)
+                ->orderBy('price')
+                ->get();
+        @endphp
+
         {{-- Navbar --}}
         <header class="sticky top-0 z-30 border-b border-ink-300 bg-white/95 backdrop-blur">
             <div class="mx-auto flex h-16 max-w-5xl items-center gap-4 px-4">
@@ -173,29 +181,29 @@
                         Harga dihitung otomatis dari berat cucian setelah ditimbang.
                     </p>
 
-                    {{-- TODO(P5): ganti data statis di bawah dengan data dari tabel services (hanya yang aktif). --}}
+                    {{-- Data dari tabel services (P5), hanya yang aktif. --}}
                     <div class="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-                        @foreach ([
-                            ['nama' => 'Cuci Kering Lipat', 'satuan' => 'kg', 'harga' => 6000, 'durasi' => '48 jam'],
-                            ['nama' => 'Cuci + Setrika', 'satuan' => 'kg', 'harga' => 8000, 'durasi' => '48 jam'],
-                            ['nama' => 'Setrika Saja', 'satuan' => 'kg', 'harga' => 5000, 'durasi' => '24 jam'],
-                            ['nama' => 'Express Cuci + Setrika', 'satuan' => 'kg', 'harga' => 8000, 'durasi' => '6 jam'],
-                            ['nama' => 'Selimut', 'satuan' => 'pcs', 'harga' => 25000, 'durasi' => '72 jam'],
-                            ['nama' => 'Jaket', 'satuan' => 'pcs', 'harga' => 20000, 'durasi' => '72 jam'],
-                        ] as $layanan)
+                        @forelse ($services as $layanan)
                             <div class="rounded-2xl border border-ink-300 bg-white p-5 shadow-sm transition hover:shadow-md">
                                 <div class="flex items-start justify-between gap-3">
-                                    <h3 class="font-display text-base font-semibold text-ink-900">{{ $layanan['nama'] }}</h3>
+                                    <h3 class="font-display text-base font-semibold text-ink-900">{{ $layanan->name }}</h3>
                                     <span class="rounded-full bg-primary-100 px-2 py-0.5 text-xs font-medium text-primary-700">
-                                        per {{ $layanan['satuan'] }}
+                                        {{ $layanan->unit->label() }}
                                     </span>
                                 </div>
                                 <p class="mt-3 font-display text-xl font-semibold text-primary-600">
-                                    Rp {{ number_format($layanan['harga'], 0, ',', '.') }}
+                                    {{ \App\Support\Money::rupiah($layanan->price) }}
                                 </p>
-                                <p class="mt-1 text-xs text-ink-600">Estimasi selesai {{ $layanan['durasi'] }}</p>
+                                <p class="mt-1 text-xs text-ink-600">
+                                    Estimasi selesai {{ $layanan->duration_hours }} jam
+                                    @if ($layanan->is_express)
+                                        <span class="ms-1 rounded-full bg-status-ironing px-2 py-0.5 text-xs font-medium text-status-ironing-ink">Express</span>
+                                    @endif
+                                </p>
                             </div>
-                        @endforeach
+                        @empty
+                            <p class="text-sm text-ink-600">Daftar layanan belum tersedia.</p>
+                        @endforelse
                     </div>
                 </div>
             </section>
