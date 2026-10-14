@@ -31,6 +31,7 @@ Route::middleware(['auth', 'role:admin,owner'])->group(function () {
 Route::middleware(['auth', 'role:owner'])->group(function () {
     Route::livewire('owner/dashboard', 'pages::owner.dashboard')->name('owner.dashboard');
     Route::livewire('owner/layanan', 'pages::owner.layanan')->name('owner.layanan');
+    Route::livewire('owner/laporan', 'pages::owner.laporan')->name('owner.laporan');
 });
 
 Route::middleware(['auth', 'verified'])->group(function () {
