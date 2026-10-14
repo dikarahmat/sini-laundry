@@ -1,20 +1,22 @@
-<x-layouts::auth :title="__('Confirm password')">
+<x-layouts::auth :title="__('Konfirmasi Kata Sandi')">
     <div class="flex flex-col gap-6">
         <x-auth-header
-            :title="__('Confirm password')"
-            :description="__('This is a secure area of the application. Please confirm your password before continuing.')"
+            :title="__('Konfirmasi Kata Sandi')"
+            :description="__('Ini adalah area aman. Konfirmasi kata sandi kamu sebelum melanjutkan.')"
         />
 
         <x-auth-session-status class="text-center" :status="session('status')" />
 
         {{-- @chisel-passkeys --}}
-        <x-passkey-verify
-            options-route="passkey.confirm-options"
-            submit-route="passkey.confirm"
-            :label="__('Confirm with passkey')"
-            :loading-label="__('Confirming...')"
-            :separator="__('Or confirm with password')"
-        />
+        @if (false)
+            <x-passkey-verify
+                options-route="passkey.confirm-options"
+                submit-route="passkey.confirm"
+                :label="__('Konfirmasi dengan passkey')"
+                :loading-label="__('Mengonfirmasi...')"
+                :separator="__('Atau konfirmasi dengan kata sandi')"
+            />
+        @endif
         {{-- @end-chisel-passkeys --}}
 
         <form method="POST" action="{{ route('password.confirm.store') }}" class="flex flex-col gap-6">
@@ -22,16 +24,16 @@
 
             <flux:input
                 name="password"
-                :label="__('Password')"
+                :label="__('Kata Sandi')"
                 type="password"
                 required
                 autocomplete="current-password"
-                :placeholder="__('Password')"
+                :placeholder="__('Kata Sandi')"
                 viewable
             />
 
             <flux:button variant="primary" type="submit" class="w-full" data-test="confirm-password-button">
-                {{ __('Confirm') }}
+                {{ __('Konfirmasi') }}
             </flux:button>
         </form>
     </div>

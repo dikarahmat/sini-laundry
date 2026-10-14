@@ -431,6 +431,7 @@ new #[Title('Detail Pesanan')] class extends Component {
                     <h2 class="font-display text-base font-semibold text-ink-900">Item Pesanan</h2>
                 </div>
 
+                <div class="overflow-x-auto">
                 <table class="w-full text-left text-sm">
                     <thead class="bg-primary-50 text-xs uppercase tracking-wide text-ink-600">
                         <tr>
@@ -471,6 +472,7 @@ new #[Title('Detail Pesanan')] class extends Component {
                         </tr>
                     </tfoot>
                 </table>
+                </div>
             </section>
 
             {{-- Timeline status --}}

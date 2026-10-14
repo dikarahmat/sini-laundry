@@ -76,7 +76,7 @@
                 icon="plus"
                 x-on:click="showForm = true"
             >
-                {{ __('Add passkey') }}
+                {{ __('Tambah passkey') }}
             </flux:button>
         </div>
     </template>
@@ -108,7 +108,7 @@
                     variant="ghost"
                     x-on:click="cancel()"
                 >
-                    {{ __('Cancel') }}
+                    {{ __('Batal') }}
                 </flux:button>
             </div>
         </div>

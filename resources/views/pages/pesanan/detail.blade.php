@@ -129,42 +129,62 @@ new #[Title('Detail Pesanan')] class extends Component {
         <h2 class="font-display text-base font-semibold text-ink-900">Rincian</h2>
 
         <div class="mt-3 space-y-2 text-sm">
-            @foreach ($order->items as $item)
-                <div class="flex items-center justify-between" wire:key="customer-item-{{ $item->id }}">
-                    <span class="text-ink-600">
-                        {{ $item->service?->name }}
-                        <span class="block text-xs">
-                            @if ($item->service?->unit?->value === 'pcs')
-                                {{ (int) $item->quantity }} pcs
-                            @else
-                                {{ \App\Support\Money::weight((float) $item->quantity) }}
+            @forelse ($order->payments as $payment)
+                <div class="flex items-center justify-between rounded-xl bg-surface px-3 py-2 text-sm"
+                    wire:key="payment-{{ $payment->id }}">
+                    <div>
+                        <p class="font-medium text-ink-900">{{ $payment->method?->label() }}</p>
+                        <p class="text-xs text-ink-600">
+                            <x-datetime :value="$payment->paid_at" />
+                            @if ($payment->receiver)
+                                · {{ $payment->receiver->name }}
                             @endif
-                            × {{ \App\Support\Money::rupiah($item->unit_price) }}
-                        </span>
-                    </span>
-                    <span class="tabular-nums text-ink-900">{{ \App\Support\Money::rupiah($item->subtotal) }}</span>
+                        </p>
+                    </div>
+                    <span class="tabular-nums font-medium text-ink-900">{{ \App\Support\Money::rupiah($payment->amount) }}</span>
                 </div>
-            @endforeach
-
-            <div class="flex items-center justify-between border-t border-ink-300/60 pt-3">
-                <span class="font-semibold text-ink-900">Total</span>
-                <span class="font-display text-lg font-semibold text-primary-600">
-                    {{ \App\Support\Money::rupiah($order->total_price) }}
-                </span>
-            </div>
-
-            <div class="flex items-center justify-between">
-                <span class="text-ink-600">Status bayar</span>
-                <x-payment-badge :status="$order->payment_status" />
-            </div>
-
-            @if ($order->estimated_done_at)
-                <div class="flex items-center justify-between">
-                    <span class="text-ink-600">Estimasi selesai</span>
-                    <span class="text-ink-900"><x-datetime :value="$order->estimated_done_at" /></span>
-                </div>
-            @endif
+            @empty
+                <p class="text-sm text-ink-600">Belum ada pembayaran.</p>
+            @endforelse
         </div>
+
+        <div class="mt-4 space-y-2">
+            @foreach ($order->items as $item)
+                        <div class="flex items-center justify-between" wire:key="customer-item-{{ $item->id }}">
+                            <span class="text-ink-600">
+                                {{ $item->service?->name }}
+                                <span class="block text-xs">
+                                    @if ($item->service?->unit?->value === 'pcs')
+                                        {{ (int) $item->quantity }} pcs
+                                    @else
+                                        {{ \App\Support\Money::weight((float) $item->quantity) }}
+                                    @endif
+                                    × {{ \App\Support\Money::rupiah($item->unit_price) }}
+                                </span>
+                            </span>
+                            <span class="tabular-nums text-ink-900">{{ \App\Support\Money::rupiah($item->subtotal) }}</span>
+                        </div>
+                    @endforeach
+
+                    <div class="flex items-center justify-between border-t border-ink-300/60 pt-3">
+                        <span class="font-semibold text-ink-900">Total</span>
+                        <span class="font-display text-lg font-semibold text-primary-600">
+                            {{ \App\Support\Money::rupiah($order->total_price) }}
+                        </span>
+                    </div>
+
+                    <div class="flex items-center justify-between">
+                        <span class="text-ink-600">Status bayar</span>
+                        <x-payment-badge :status="$order->payment_status" />
+                    </div>
+
+                    @if ($order->estimated_done_at)
+                        <div class="flex items-center justify-between">
+                            <span class="text-ink-600">Estimasi selesai</span>
+                            <span class="text-ink-900"><x-datetime :value="$order->estimated_done_at" /></span>
+                        </div>
+                    @endif
+                </div>
     </section>
 
     {{-- Aksi batalkan --}}

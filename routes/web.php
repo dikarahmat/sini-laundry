@@ -1,6 +1,7 @@
 <?php
 
 use App\Models\Order;
+use App\Enums\Role;
 use Illuminate\Support\Facades\Route;
 
 Route::view('/', 'welcome')->name('home');
@@ -35,8 +36,17 @@ Route::middleware(['auth', 'role:owner'])->group(function () {
     Route::livewire('owner/pengguna', 'pages::owner.pengguna')->name('owner.pengguna');
 });
 
-Route::middleware(['auth', 'verified'])->group(function () {
-    Route::view('dashboard', 'dashboard')->name('dashboard');
+Route::middleware(['auth'])->group(function () {
+    // Dashboard bawaan dialihkan ke halaman sesuai peran.
+    Route::get('dashboard', function () {
+        $user = auth()->user();
+
+        return match ($user?->role) {
+            Role::Admin => redirect()->route('admin.pesanan.index'),
+            Role::Owner => redirect()->route('owner.dashboard'),
+            default => redirect()->route('pesanan.index'),
+        };
+    })->name('dashboard');
 });
 
 require __DIR__.'/settings.php';
