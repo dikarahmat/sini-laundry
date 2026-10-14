@@ -4,7 +4,10 @@ namespace App\Actions\Fortify;
 
 use App\Concerns\PasswordValidationRules;
 use App\Concerns\ProfileValidationRules;
+use App\Enums\Role;
 use App\Models\User;
+use App\Support\Phone;
+use Closure;
 use Illuminate\Support\Facades\Validator;
 use Laravel\Fortify\Contracts\CreatesNewUsers;
 
@@ -21,12 +24,22 @@ class CreateNewUser implements CreatesNewUsers
     {
         Validator::make($input, [
             ...$this->profileRules(),
+            'phone' => ['required', 'string', 'max:20', function (string $attribute, mixed $value, Closure $fail): void {
+                if (! Phone::isValid(is_string($value) ? $value : null)) {
+                    $fail('Format nomor HP tidak valid. Gunakan format 08xxxxxxxxxx.');
+                }
+            }],
             'password' => $this->passwordRules(),
+        ], [
+            'phone.required' => 'Nomor HP wajib diisi.',
         ])->validate();
 
+        // Peran tidak boleh diisi dari form publik: selalu customer.
         return User::create([
             'name' => $input['name'],
             'email' => $input['email'],
+            'phone' => Phone::normalize($input['phone']),
+            'role' => Role::Customer,
             'password' => $input['password'],
         ]);
     }
