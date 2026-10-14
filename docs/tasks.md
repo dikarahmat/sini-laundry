@@ -50,9 +50,10 @@ Daftar pekerjaan berurutan. Centang `[x]` kalau sudah selesai. Kerjakan dari ata
 
 ## Tahap 4: Pembayaran dan Nota (P0)
 
-- [ ] **T4.1** Catat pembayaran (tunai, transfer, QRIS), hitung status bayar (Belum Bayar, DP, Lunas) `A`
-- [ ] **T4.2** Nota/struk yang bisa dicetak atau disimpan PDF `B`
-- [ ] **T4.3** QR pada nota yang mengarah ke halaman cek status `A`
+- [x] **T4.1** Catat pembayaran (tunai, transfer, QRIS), hitung status bayar (Belum Bayar, DP, Lunas) `A`
+- [x] **T4.2** Nota/struk yang bisa dicetak atau disimpan PDF `B`
+  - Catatan: nota HTML 80mm siap cetak via window.print; QR diganti tautan teks + kode pesanan besar (tanpa paket eksternal).
+- [ ] **T4.3** QR pada nota yang mengarah ke halaman cek status `A` (alternatif tanpa paket sudah ada; QR gambar menunggu paket berizin)
 
 ## Tahap 5: Sisi Pelanggan (P1)
 

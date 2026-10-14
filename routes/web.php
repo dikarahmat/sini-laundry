@@ -1,9 +1,16 @@
 <?php
 
-use App\Enums\Role;
+use App\Models\Order;
 use Illuminate\Support\Facades\Route;
 
 Route::view('/', 'welcome')->name('home');
+
+// Nota/struk cetak (khusus admin dan owner).
+Route::get('admin/pesanan/{order}/nota', function (Order $order) {
+    $order->load(['customer', 'items.service', 'payments', 'creator']);
+
+    return view('pages.admin.pesanan.nota', ['order' => $order]);
+})->middleware(['auth', 'role:admin,owner'])->name('admin.pesanan.nota');
 
 Route::middleware(['auth', 'role:customer'])->group(function () {
     Route::livewire('pesanan', 'pages::pesanan')->name('pesanan.index');
