@@ -11,6 +11,7 @@ Route::middleware(['auth', 'role:customer'])->group(function () {
 
 Route::middleware(['auth', 'role:admin,owner'])->group(function () {
     Route::livewire('admin/pesanan', 'pages::admin.pesanan')->name('admin.pesanan.index');
+    Route::livewire('admin/pelanggan', 'pages::admin.pelanggan')->name('admin.pelanggan.index');
 });
 
 Route::middleware(['auth', 'role:owner'])->group(function () {

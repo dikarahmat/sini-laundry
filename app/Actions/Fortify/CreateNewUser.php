@@ -5,6 +5,7 @@ namespace App\Actions\Fortify;
 use App\Concerns\PasswordValidationRules;
 use App\Concerns\ProfileValidationRules;
 use App\Enums\Role;
+use App\Models\Customer;
 use App\Models\User;
 use App\Support\Phone;
 use Closure;
@@ -34,13 +35,46 @@ class CreateNewUser implements CreatesNewUsers
             'phone.required' => 'Nomor HP wajib diisi.',
         ])->validate();
 
+        $phone = Phone::normalize($input['phone']);
+
         // Peran tidak boleh diisi dari form publik: selalu customer.
-        return User::create([
+        $user = User::create([
             'name' => $input['name'],
             'email' => $input['email'],
-            'phone' => Phone::normalize($input['phone']),
+            'phone' => $phone,
             'role' => Role::Customer,
             'password' => $input['password'],
+        ]);
+
+        $this->ensureCustomer($user, $phone);
+
+        return $user;
+    }
+
+    /**
+     * Pastikan pelanggan baru punya baris customers; tautkan ke walk-in bila
+     * nomor HP-nya sudah tercatat sebelumnya.
+     */
+    private function ensureCustomer(User $user, ?string $phone): void
+    {
+        if ($user->customer !== null) {
+            return;
+        }
+
+        $walkIn = $phone !== null
+            ? Customer::query()->whereNull('user_id')->where('phone', $phone)->first()
+            : null;
+
+        if ($walkIn !== null) {
+            $walkIn->update(['user_id' => $user->id]);
+
+            return;
+        }
+
+        Customer::create([
+            'user_id' => $user->id,
+            'name' => $user->name,
+            'phone' => $phone,
         ]);
     }
 }

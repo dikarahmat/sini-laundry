@@ -6,8 +6,11 @@ namespace App\Providers;
 use App\Actions\Fortify\CreateNewUser;
 /* @end-chisel-registration */
 use App\Actions\Fortify\ResetUserPassword;
+use App\Listeners\EnsureCustomerExists;
+use Illuminate\Auth\Events\Login;
 use Illuminate\Cache\RateLimiting\Limit;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Event;
 use Illuminate\Support\Facades\RateLimiter;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Str;
@@ -37,6 +40,9 @@ class FortifyServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
+        // Pastikan pelanggan punya baris customers saat login pertama (T2.3).
+        Event::listen(Login::class, EnsureCustomerExists::class);
+
         $this->configureActions();
         $this->configureViews();
         $this->configureRateLimiting();

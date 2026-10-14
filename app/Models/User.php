@@ -95,4 +95,14 @@ class User extends Authenticatable implements MustVerifyEmail, PasskeyUser
     {
         return $this->isAdmin() || $this->isOwner();
     }
+
+    /**
+     * Baris pelanggan milik user ini (dibuat otomatis saat daftar/login pertama).
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasOne<Customer, $this>
+     */
+    public function customer(): \Illuminate\Database\Eloquent\Relations\HasOne
+    {
+        return $this->hasOne(Customer::class);
+    }
 }
