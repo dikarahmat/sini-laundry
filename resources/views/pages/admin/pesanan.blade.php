@@ -136,7 +136,7 @@ new #[Title('Daftar Pesanan')] class extends Component {
         @foreach ($this->statusTabs() as $value => $label)
             @php($tabKey = $value === '' ? 'semua' : $value)
             <button type="button" wire:click="$set('status', '{{ $value }}')"
-                class="inline-flex items-center gap-2 rounded-xl px-3 py-2 text-sm font-medium transition {{ $status === $value ? 'bg-primary-600 text-white' : 'bg-white text-ink-600 hover:bg-primary-50' }}"
+                class="inline-flex items-center gap-2 rounded-xl px-3 py-2 text-sm font-medium transition {{ $status === $value ? 'bg-primary-600 text-white' : 'bg-white text-ink-600 hover:bg-primary-50' }} {{ $value === 'pending_confirmation' ? 'ring-2 ring-status-ironing' : '' }}"
                 wire:key="tab-{{ $tabKey }}">
                 {{ $label }}
                 @php($count = $this->statusCounts[$value] ?? 0)

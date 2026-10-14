@@ -59,7 +59,8 @@ Daftar pekerjaan berurutan. Centang `[x]` kalau sudah selesai. Kerjakan dari ata
 
 - [x] **T5.1** Beranda pelanggan: pesanan aktif dan riwayat `B`
 - [x] **T5.2** Form pesan online (layanan, estimasi berat, jadwal) `B`
-- [x] **T5.3** Alur konfirmasi pesanan online oleh admin (status `Menunggu Konfirmasi`) `A` (sisi pelanggan; konfirmasi kasir menyusul di tugas berikutnya)
+- [x] **T5.3** Alur konfirmasi pesanan online oleh admin (status `Menunggu Konfirmasi`) `A`
+  - Catatan: sisi pelanggan (P13) + panel "Terima Cucian dan Timbang" dan "Tolak" di kasir (P14).
 - [x] **T5.4** Halaman cek status publik (kode pesanan + 4 digit terakhir HP) `B`
 - [x] **T5.5** Pembatasan percobaan cek status (rate limiting) `A`
   - Catatan: maksimal 5 percobaan per menit per IP (RateLimiter Laravel), pesan Bahasa Indonesia.
