@@ -78,13 +78,18 @@ Daftar pekerjaan berurutan. Centang `[x]` kalau sudah selesai. Kerjakan dari ata
 - [x] **T7.3** Cek tampilan di HP (360px) dan desktop `B`
 - [x] **T7.4** Cek otorisasi: pelanggan tidak bisa membuka halaman admin/owner `A`
   - Catatan: AuthorizationTest menutupi seluruh route di architecture.md §7.
-- [ ] **T7.4** Cek otorisasi: pelanggan tidak bisa membuka halaman admin/owner `A`
 
 ## Kelola Pengguna (owner)
 
 - [x] **P17** Halaman `/owner/pengguna`: daftar pengguna (filter peran + cari), buat akun admin,
   reset password admin, aktif/nonaktif admin; kolom `users.is_active`; akun nonaktif tidak bisa login;
   owner tidak bisa menonaktifkan/mengubah dirinya sendiri.
+
+## Audit Keamanan
+
+- [x] **P21** Audit keamanan seluruh proyek (otorisasi, validasi, mass assignment, SQL mentah,
+  output Blade, rahasia di git, rate limiting, data publik, properti Livewire, APP_DEBUG).
+  Temuan diperbaiki: reset password dibatasi untuk akun admin; seeder demo dilarang di produksi.
 
 ## Tahap 8: Fase 2 (P2, jika waktu cukup)
 
