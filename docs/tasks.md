@@ -67,7 +67,7 @@ Daftar pekerjaan berurutan. Centang `[x]` kalau sudah selesai. Kerjakan dari ata
 
 ## Tahap 6: Laporan Owner (P1)
 
-- [ ] **T6.1** Dashboard owner: pendapatan hari ini, pesanan aktif, pesanan selesai `B`
+- [x] **T6.1** Dashboard owner: pendapatan hari ini, pesanan aktif, pesanan selesai `B`
 - [ ] **T6.2** Laporan pendapatan harian dan bulanan (filter tanggal) `A`
 - [ ] **T6.3** Layanan terlaris dan jumlah pesanan per periode `A`
 
