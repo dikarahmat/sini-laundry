@@ -105,4 +105,14 @@ class User extends Authenticatable implements MustVerifyEmail, PasskeyUser
     {
         return $this->hasOne(Customer::class);
     }
+
+    /**
+     * Pesanan yang dibuat user ini (sebagai admin/kasir).
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany<Order, $this>
+     */
+    public function ordersCreated(): \Illuminate\Database\Eloquent\Relations\HasMany
+    {
+        return $this->hasMany(Order::class, 'created_by');
+    }
 }
