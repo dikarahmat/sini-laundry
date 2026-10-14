@@ -5,6 +5,9 @@ use Illuminate\Support\Facades\Route;
 
 Route::view('/', 'welcome')->name('home');
 
+// Cek status publik (tanpa login).
+Route::livewire('cek-status', 'pages::cek-status')->name('cek-status');
+
 // Nota/struk cetak (khusus admin dan owner).
 Route::get('admin/pesanan/{order}/nota', function (Order $order) {
     $order->load(['customer', 'items.service', 'payments', 'creator']);
