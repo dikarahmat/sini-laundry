@@ -78,6 +78,12 @@ Daftar pekerjaan berurutan. Centang `[x]` kalau sudah selesai. Kerjakan dari ata
 - [ ] **T7.3** Cek tampilan di HP (360px) dan desktop `B`
 - [ ] **T7.4** Cek otorisasi: pelanggan tidak bisa membuka halaman admin/owner `A`
 
+## Kelola Pengguna (owner)
+
+- [x] **P17** Halaman `/owner/pengguna`: daftar pengguna (filter peran + cari), buat akun admin,
+  reset password admin, aktif/nonaktif admin; kolom `users.is_active`; akun nonaktif tidak bisa login;
+  owner tidak bisa menonaktifkan/mengubah dirinya sendiri.
+
 ## Tahap 8: Fase 2 (P2, jika waktu cukup)
 
 - [ ] **T8.1** Notifikasi WhatsApp/email saat status `Selesai` `A`
