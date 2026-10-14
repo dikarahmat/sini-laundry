@@ -15,7 +15,7 @@ class EnsureRole
     /**
      * Handle an incoming request.
      *
-     * @param  \Closure(Request): (Response)  $next
+     * @param  Closure(Request): (Response)  $next
      * @param  string  ...$roles  Daftar peran yang diizinkan, boleh dipisahkan koma.
      */
     public function handle(Request $request, Closure $next, string ...$roles): Response

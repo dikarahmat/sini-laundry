@@ -74,8 +74,8 @@ Daftar pekerjaan berurutan. Centang `[x]` kalau sudah selesai. Kerjakan dari ata
 ## Tahap 7: Kualitas (P1)
 
 - [ ] **T7.1** Tes otomatis untuk perhitungan harga dan alur status `A`
-- [ ] **T7.2** Validasi form dan pesan error berbahasa Indonesia `B`
-- [ ] **T7.3** Cek tampilan di HP (360px) dan desktop `B`
+- [x] **T7.2** Validasi form dan pesan error berbahasa Indonesia `B`
+- [x] **T7.3** Cek tampilan di HP (360px) dan desktop `B`
 - [ ] **T7.4** Cek otorisasi: pelanggan tidak bisa membuka halaman admin/owner `A`
 
 ## Kelola Pengguna (owner)

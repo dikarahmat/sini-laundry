@@ -3,6 +3,8 @@
 namespace App\Models;
 
 use App\Enums\ServiceUnit;
+use Carbon\CarbonInterface;
+use Database\Factories\ServiceFactory;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -14,12 +16,12 @@ use Illuminate\Database\Eloquent\Model;
  * @property int $duration_hours
  * @property bool $is_express
  * @property bool $is_active
- * @property \Carbon\CarbonInterface $created_at
- * @property \Carbon\CarbonInterface $updated_at
+ * @property CarbonInterface $created_at
+ * @property CarbonInterface $updated_at
  */
 class Service extends Model
 {
-    /** @use HasFactory<\Database\Factories\ServiceFactory> */
+    /** @use HasFactory<ServiceFactory> */
     use HasFactory;
 
     /**

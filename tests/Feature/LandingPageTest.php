@@ -2,6 +2,7 @@
 
 namespace Tests\Feature;
 
+use Database\Seeders\ServiceSeeder;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
@@ -11,7 +12,7 @@ class LandingPageTest extends TestCase
 
     public function test_landing_page_menampilkan_konten_sini_laundry(): void
     {
-        $this->seed(\Database\Seeders\ServiceSeeder::class);
+        $this->seed(ServiceSeeder::class);
 
         $response = $this->get(route('home'));
 

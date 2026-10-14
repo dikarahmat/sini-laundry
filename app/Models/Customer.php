@@ -2,6 +2,9 @@
 
 namespace App\Models;
 
+use App\Support\Phone;
+use Carbon\CarbonInterface;
+use Database\Factories\CustomerFactory;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -13,12 +16,12 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
  * @property string $name
  * @property string $phone
  * @property string|null $address
- * @property \Carbon\CarbonInterface $created_at
- * @property \Carbon\CarbonInterface $updated_at
+ * @property CarbonInterface $created_at
+ * @property CarbonInterface $updated_at
  */
 class Customer extends Model
 {
-    /** @use HasFactory<\Database\Factories\CustomerFactory> */
+    /** @use HasFactory<CustomerFactory> */
     use HasFactory;
 
     /**
@@ -63,7 +66,7 @@ class Customer extends Model
             return $existing;
         }
 
-        $phone = \App\Support\Phone::normalize($user->phone);
+        $phone = Phone::normalize($user->phone);
 
         $walkIn = $phone !== null
             ? static::query()->whereNull('user_id')->where('phone', $phone)->first()

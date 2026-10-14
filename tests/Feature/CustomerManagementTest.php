@@ -6,6 +6,7 @@ use App\Enums\Role;
 use App\Models\Customer;
 use App\Models\User;
 use App\Support\Phone;
+use Illuminate\Auth\Events\Login;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Event;
 use Livewire\Livewire;
@@ -56,7 +57,7 @@ class CustomerManagementTest extends TestCase
             'role' => Role::Customer,
         ]);
 
-        Event::dispatch(new \Illuminate\Auth\Events\Login('web', $user, false));
+        Event::dispatch(new Login('web', $user, false));
 
         $this->assertSame($walkIn->id, $user->refresh()->customer->id);
         $this->assertSame($user->id, $walkIn->refresh()->user_id);

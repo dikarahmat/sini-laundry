@@ -5,6 +5,8 @@ namespace App\Models;
 use App\Enums\OrderSource;
 use App\Enums\OrderStatus;
 use App\Enums\PaymentStatus;
+use Carbon\CarbonInterface;
+use Database\Factories\OrderFactory;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -21,14 +23,14 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
  * @property float $total_weight
  * @property int $total_price
  * @property string|null $notes
- * @property \Carbon\CarbonInterface|null $estimated_done_at
- * @property \Carbon\CarbonInterface|null $picked_up_at
- * @property \Carbon\CarbonInterface $created_at
- * @property \Carbon\CarbonInterface $updated_at
+ * @property CarbonInterface|null $estimated_done_at
+ * @property CarbonInterface|null $picked_up_at
+ * @property CarbonInterface $created_at
+ * @property CarbonInterface $updated_at
  */
 class Order extends Model
 {
-    /** @use HasFactory<\Database\Factories\OrderFactory> */
+    /** @use HasFactory<OrderFactory> */
     use HasFactory;
 
     /**

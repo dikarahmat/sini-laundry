@@ -1,7 +1,7 @@
 <?php
 
-use App\Models\Order;
 use App\Enums\Role;
+use App\Models\Order;
 use Illuminate\Support\Facades\Route;
 
 Route::view('/', 'welcome')->name('home');

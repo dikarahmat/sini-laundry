@@ -8,6 +8,8 @@ use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Attributes\Fillable;
 use Illuminate\Database\Eloquent\Attributes\Hidden;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Carbon;
@@ -100,9 +102,9 @@ class User extends Authenticatable implements MustVerifyEmail, PasskeyUser
     /**
      * Baris pelanggan milik user ini (dibuat otomatis saat daftar/login pertama).
      *
-     * @return \Illuminate\Database\Eloquent\Relations\HasOne<Customer, $this>
+     * @return HasOne<Customer, $this>
      */
-    public function customer(): \Illuminate\Database\Eloquent\Relations\HasOne
+    public function customer(): HasOne
     {
         return $this->hasOne(Customer::class);
     }
@@ -110,9 +112,9 @@ class User extends Authenticatable implements MustVerifyEmail, PasskeyUser
     /**
      * Pesanan yang dibuat user ini (sebagai admin/kasir).
      *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany<Order, $this>
+     * @return HasMany<Order, $this>
      */
-    public function ordersCreated(): \Illuminate\Database\Eloquent\Relations\HasMany
+    public function ordersCreated(): HasMany
     {
         return $this->hasMany(Order::class, 'created_by');
     }

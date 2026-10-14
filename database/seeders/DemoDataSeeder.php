@@ -13,7 +13,6 @@ use App\Models\OrderStatusLog;
 use App\Models\Payment;
 use App\Models\Service;
 use App\Models\User;
-use App\Services\OrderCodeGenerator;
 use App\Services\OrderPricingService;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Carbon;

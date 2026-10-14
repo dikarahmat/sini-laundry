@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Enums\PaymentMethod;
+use Carbon\CarbonInterface;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -13,9 +14,9 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  * @property int $amount
  * @property PaymentMethod $method
  * @property int $received_by
- * @property \Carbon\CarbonInterface $paid_at
- * @property \Carbon\CarbonInterface $created_at
- * @property \Carbon\CarbonInterface $updated_at
+ * @property CarbonInterface $paid_at
+ * @property CarbonInterface $created_at
+ * @property CarbonInterface $updated_at
  */
 class Payment extends Model
 {

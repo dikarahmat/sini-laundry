@@ -8,7 +8,7 @@ use App\Enums\Role;
 use App\Models\Order;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Auth\Access\AuthorizationException;
+use Illuminate\Support\Facades\Gate;
 use Livewire\Livewire;
 use Tests\TestCase;
 
@@ -109,11 +109,11 @@ class OrderDetailTest extends TestCase
         $this->order->update(['status' => OrderStatus::Washing]);
 
         // Policy: admin tidak punya izin mundurkan status.
-        $this->assertFalse(\Illuminate\Support\Facades\Gate::forUser($this->staff)->allows('rollbackStatus', $this->order));
+        $this->assertFalse(Gate::forUser($this->staff)->allows('rollbackStatus', $this->order));
 
         // Owner punya izin.
         $owner = User::factory()->role(Role::Owner)->create();
-        $this->assertTrue(\Illuminate\Support\Facades\Gate::forUser($owner)->allows('rollbackStatus', $this->order));
+        $this->assertTrue(Gate::forUser($owner)->allows('rollbackStatus', $this->order));
 
         // Aksi mundurkan status oleh admin tidak mengubah status pesanan.
         Livewire::actingAs($this->staff)

@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Enums\OrderStatus;
+use Carbon\CarbonInterface;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -13,7 +14,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  * @property OrderStatus $status
  * @property int|null $changed_by
  * @property string|null $note
- * @property \Carbon\CarbonInterface|null $created_at
+ * @property CarbonInterface|null $created_at
  */
 class OrderStatusLog extends Model
 {

@@ -11,6 +11,7 @@ use App\Models\Payment;
 use App\Models\Service;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Support\Carbon;
 use Livewire\Livewire;
 use Tests\TestCase;
 
@@ -29,7 +30,7 @@ class RevenueReportTest extends TestCase
 
     public function test_angka_laporan_sesuai_rentang_tanggal(): void
     {
-        $today = \Illuminate\Support\Carbon::today();
+        $today = Carbon::today();
 
         // Pesanan dan pembayaran di dalam rentang.
         $orderA = Order::factory()->create([
@@ -63,7 +64,7 @@ class RevenueReportTest extends TestCase
 
     public function test_belum_lunas_masuk_laporan(): void
     {
-        $today = \Illuminate\Support\Carbon::today();
+        $today = Carbon::today();
 
         $order = Order::factory()->create([
             'created_at' => $today,
@@ -83,7 +84,7 @@ class RevenueReportTest extends TestCase
 
     public function test_layanan_terlaris_diagregasi(): void
     {
-        $today = \Illuminate\Support\Carbon::today();
+        $today = Carbon::today();
 
         $service = Service::create([
             'name' => 'Cuci + Setrika',
@@ -125,12 +126,12 @@ class RevenueReportTest extends TestCase
     {
         $component = Livewire::actingAs($this->owner)->test('pages::owner.laporan');
 
-        $this->assertSame(\Illuminate\Support\Carbon::now()->startOfMonth()->toDateString(), $component->get('dateFrom'));
+        $this->assertSame(Carbon::now()->startOfMonth()->toDateString(), $component->get('dateFrom'));
 
         $component->call('shortcut', 'last7');
 
-        $this->assertSame(\Illuminate\Support\Carbon::today()->subDays(6)->toDateString(), $component->get('dateFrom'));
-        $this->assertSame(\Illuminate\Support\Carbon::today()->toDateString(), $component->get('dateTo'));
+        $this->assertSame(Carbon::today()->subDays(6)->toDateString(), $component->get('dateFrom'));
+        $this->assertSame(Carbon::today()->toDateString(), $component->get('dateTo'));
     }
 
     public function test_hanya_owner_yang_bisa_membuka_laporan(): void

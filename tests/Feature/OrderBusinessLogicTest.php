@@ -7,12 +7,17 @@ use App\Enums\OrderStatus;
 use App\Enums\PaymentMethod;
 use App\Enums\PaymentStatus;
 use App\Models\Order;
+use App\Models\OrderItem;
+use App\Models\OrderStatusLog;
+use App\Models\Payment;
 use App\Models\Service;
+use App\Models\User;
 use App\Services\OrderCodeGenerator;
 use App\Services\OrderStatusService;
 use App\Services\PaymentService;
-use App\Models\User;
+use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Validation\ValidationException;
 use RuntimeException;
 use Tests\TestCase;
 
@@ -58,9 +63,9 @@ class OrderBusinessLogicTest extends TestCase
     {
         $order = Order::factory()->create();
 
-        \App\Models\OrderItem::factory()->create(['order_id' => $order->id]);
-        \App\Models\OrderStatusLog::factory()->create(['order_id' => $order->id]);
-        \App\Models\Payment::factory()->create(['order_id' => $order->id]);
+        OrderItem::factory()->create(['order_id' => $order->id]);
+        OrderStatusLog::factory()->create(['order_id' => $order->id]);
+        Payment::factory()->create(['order_id' => $order->id]);
 
         $order->refresh();
 
@@ -105,7 +110,7 @@ class OrderBusinessLogicTest extends TestCase
         $admin = User::factory()->create();
         $admin->forceFill(['role' => 'admin'])->save();
 
-        $this->expectException(\Illuminate\Auth\Access\AuthorizationException::class);
+        $this->expectException(AuthorizationException::class);
 
         $this->statusService->rollback($order, OrderStatus::Received, $admin, 'Salah input');
     }
@@ -132,7 +137,7 @@ class OrderBusinessLogicTest extends TestCase
         $owner = User::factory()->create();
         $owner->forceFill(['role' => 'owner'])->save();
 
-        $this->expectException(\Illuminate\Validation\ValidationException::class);
+        $this->expectException(ValidationException::class);
 
         $this->statusService->rollback($order, OrderStatus::Received, $owner, '   ');
     }
@@ -197,7 +202,7 @@ class OrderBusinessLogicTest extends TestCase
         $staff = User::factory()->create();
         $order = $this->order(['total_price' => 10000]);
 
-        $this->expectException(\Illuminate\Validation\ValidationException::class);
+        $this->expectException(ValidationException::class);
 
         $this->paymentService->record($order, 0, PaymentMethod::Cash, $staff);
     }
@@ -215,7 +220,7 @@ class OrderBusinessLogicTest extends TestCase
     {
         $service = Service::factory()->perKg()->create(['price' => 6000]);
 
-        $item = \App\Models\OrderItem::factory()->create([
+        $item = OrderItem::factory()->create([
             'service_id' => $service->id,
             'quantity' => 2.0,
             'unit_price' => 6000,

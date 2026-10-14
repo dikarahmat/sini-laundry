@@ -6,6 +6,7 @@ use App\Enums\Role;
 use App\Enums\ServiceUnit;
 use App\Models\Service;
 use App\Models\User;
+use Database\Seeders\ServiceSeeder;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Livewire\Livewire;
 use Tests\TestCase;
@@ -108,7 +109,7 @@ class ServiceManagementTest extends TestCase
 
     public function test_seeder_layanan_awal_membuat_enam_layanan(): void
     {
-        $this->seed(\Database\Seeders\ServiceSeeder::class);
+        $this->seed(ServiceSeeder::class);
 
         $this->assertSame(6, Service::count());
         $this->assertDatabaseHas('services', [

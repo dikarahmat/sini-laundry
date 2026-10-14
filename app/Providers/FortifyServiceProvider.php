@@ -17,6 +17,8 @@ use Illuminate\Support\Facades\RateLimiter;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Str;
 use Illuminate\Validation\ValidationException;
+use Laravel\Fortify\Contracts\LoginResponse;
+use Laravel\Fortify\Contracts\RegisterResponse;
 use Laravel\Fortify\Fortify;
 
 class FortifyServiceProvider extends ServiceProvider
@@ -28,12 +30,12 @@ class FortifyServiceProvider extends ServiceProvider
     {
         // Redirect setelah login dan register disesuaikan per peran.
         $this->app->singleton(
-            \Laravel\Fortify\Contracts\LoginResponse::class,
+            LoginResponse::class,
             \App\Http\Responses\LoginResponse::class,
         );
 
         $this->app->singleton(
-            \Laravel\Fortify\Contracts\RegisterResponse::class,
+            RegisterResponse::class,
             \App\Http\Responses\RegisterResponse::class,
         );
     }
