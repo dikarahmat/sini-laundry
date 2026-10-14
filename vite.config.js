@@ -14,11 +14,16 @@ export default defineConfig({
                 /* @end-chisel-passkeys */
             ],
             refresh: true,
-            fonts: [
-                bunny('Instrument Sans', {
-                    weights: [400, 500, 600],
-                }),
-            ],
+            // Font Poppins (judul) dan Inter (isi) didaftarkan di resources/css/app.css
+            // pada --font-display dan --font-sans dengan fallback system-ui.
+            // Pengunduhan font otomatis via plugin "bunny" sengaja tidak dipakai
+            // karena jaringan lokal sering timeout ke fonts.bunny.net dan membuat
+            // build gagal. Kalau jaringan stabil, bisa diaktifkan kembali di sini:
+            //
+            // fonts: [
+            //     bunny('Poppins', { weights: [400, 500, 600, 700] }),
+            //     bunny('Inter', { weights: [400, 500, 600] }),
+            // ],
         }),
         tailwindcss(),
     ]),
