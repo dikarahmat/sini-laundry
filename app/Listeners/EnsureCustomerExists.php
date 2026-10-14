@@ -2,10 +2,9 @@
 
 namespace App\Listeners;
 
-use App\Enums\Role;
 use App\Models\Customer;
 use App\Models\User;
-use App\Support\Phone;
+use App\Enums\Role;
 use Illuminate\Auth\Events\Login;
 
 /**
@@ -25,30 +24,6 @@ class EnsureCustomerExists
             return;
         }
 
-        if ($user->customer !== null) {
-            return;
-        }
-
-        $phone = Phone::normalize($user->phone);
-
-        $walkIn = $phone !== null
-            ? Customer::query()
-                ->whereNull('user_id')
-                ->where('phone', $phone)
-                ->first()
-            : null;
-
-        if ($walkIn !== null) {
-            $walkIn->update(['user_id' => $user->id]);
-            $user->setRelation('customer', $walkIn);
-
-            return;
-        }
-
-        Customer::create([
-            'user_id' => $user->id,
-            'name' => $user->name,
-            'phone' => $phone,
-        ]);
+        Customer::ensureForUser($user);
     }
 }

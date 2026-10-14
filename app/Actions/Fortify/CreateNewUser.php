@@ -46,35 +46,9 @@ class CreateNewUser implements CreatesNewUsers
             'password' => $input['password'],
         ]);
 
-        $this->ensureCustomer($user, $phone);
+        // Pastikan pelanggan baru punya baris customers (menautkan walk-in jika ada).
+        Customer::ensureForUser($user);
 
         return $user;
-    }
-
-    /**
-     * Pastikan pelanggan baru punya baris customers; tautkan ke walk-in bila
-     * nomor HP-nya sudah tercatat sebelumnya.
-     */
-    private function ensureCustomer(User $user, ?string $phone): void
-    {
-        if ($user->customer !== null) {
-            return;
-        }
-
-        $walkIn = $phone !== null
-            ? Customer::query()->whereNull('user_id')->where('phone', $phone)->first()
-            : null;
-
-        if ($walkIn !== null) {
-            $walkIn->update(['user_id' => $user->id]);
-
-            return;
-        }
-
-        Customer::create([
-            'user_id' => $user->id,
-            'name' => $user->name,
-            'phone' => $phone,
-        ]);
     }
 }

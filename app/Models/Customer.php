@@ -50,4 +50,40 @@ class Customer extends Model
     {
         return $this->hasMany(Order::class);
     }
+
+    /**
+     * Pastikan user punya baris pelanggan (buat atau tautkan ke walk-in).
+     * Dipakai saat registrasi, login pertama, dan saat membuat pesanan online.
+     */
+    public static function ensureForUser(User $user): self
+    {
+        $existing = $user->customer;
+
+        if ($existing !== null) {
+            return $existing;
+        }
+
+        $phone = \App\Support\Phone::normalize($user->phone);
+
+        $walkIn = $phone !== null
+            ? static::query()->whereNull('user_id')->where('phone', $phone)->first()
+            : null;
+
+        if ($walkIn !== null) {
+            $walkIn->update(['user_id' => $user->id]);
+            $user->setRelation('customer', $walkIn);
+
+            return $walkIn;
+        }
+
+        $customer = static::create([
+            'user_id' => $user->id,
+            'name' => $user->name,
+            'phone' => $phone,
+        ]);
+
+        $user->setRelation('customer', $customer);
+
+        return $customer;
+    }
 }

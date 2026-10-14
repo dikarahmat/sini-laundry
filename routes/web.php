@@ -17,6 +17,8 @@ Route::get('admin/pesanan/{order}/nota', function (Order $order) {
 
 Route::middleware(['auth', 'role:customer'])->group(function () {
     Route::livewire('pesanan', 'pages::pesanan')->name('pesanan.index');
+    Route::livewire('pesanan/baru', 'pages::pesanan.baru')->name('pesanan.baru');
+    Route::livewire('pesanan/{order}', 'pages::pesanan.detail')->name('pesanan.show');
 });
 
 Route::middleware(['auth', 'role:admin,owner'])->group(function () {

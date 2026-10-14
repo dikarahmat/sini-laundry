@@ -65,11 +65,17 @@ class OrderPolicy
     }
 
     /**
-     * Batalkan pesanan: hanya admin/kasir.
+     * Batalkan pesanan: admin/kasir (sebelum Dicuci), pelanggan hanya saat
+     * pesanannya sendiri masih Menunggu Konfirmasi.
      */
     public function cancel(User $user, Order $order): bool
     {
-        return $user->isStaff() && ! $this->isLocked($order);
+        if ($user->isStaff()) {
+            return ! $this->isLocked($order);
+        }
+
+        return $order->customer?->user_id === $user->id
+            && $order->status === OrderStatus::PendingConfirmation;
     }
 
     /**
