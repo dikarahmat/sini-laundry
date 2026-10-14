@@ -107,9 +107,10 @@ new #[Title('Pengguna')] class extends Component {
     {
         $user = User::findOrFail($this->resettingUserId);
 
-        // Owner tidak boleh mengubah dirinya sendiri lewat halaman ini.
+        // Hanya akun admin yang boleh direset lewat halaman ini.
+        // Owner tidak boleh mengubah atau mereset akun pemilik lain.
         abort_if($user->is(auth()->user()), 403);
-        abort_unless($user->role !== Role::Owner, 403);
+        abort_unless($user->role === Role::Admin, 403);
 
         $validated = $this->validate([
             'resetPassword' => ['required', 'string', 'min:8'],
@@ -152,6 +153,7 @@ new #[Title('Pengguna')] class extends Component {
         $user = User::findOrFail($userId);
 
         abort_if($user->is(auth()->user()), 403);
+        abort_unless($user->role === Role::Admin, 403);
 
         $this->resettingUserId = $user->id;
         $this->resetPassword = '';

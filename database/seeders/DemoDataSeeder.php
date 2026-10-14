@@ -27,6 +27,12 @@ class DemoDataSeeder extends Seeder
 {
     public function run(): void
     {
+        if (app()->environment('production')) {
+            $this->command->error('DemoDataSeeder tidak boleh dijalankan di produksi.');
+
+            return;
+        }
+
         $this->callOnce(ServiceSeeder::class);
 
         // Hanya satu kasir/admin demo untuk created_by.
@@ -36,6 +42,8 @@ class DemoDataSeeder extends Seeder
             'phone' => '081200000002',
             'role' => 'admin',
         ]);
+
+        $this->command->warn('DemoDataSeeder akan MENGHAPUS semua pesanan dan pelanggan walk-in yang ada, lalu membuat data demo baru.');
 
         DB::transaction(function () use ($staff): void {
             // Bersihkan data demo lama agar aman dijalankan ulang.
