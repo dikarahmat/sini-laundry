@@ -41,7 +41,8 @@ Daftar pekerjaan berurutan. Centang `[x]` kalau sudah selesai. Kerjakan dari ata
 - [x] **T3.1** Migrasi dan model: `orders`, `order_items`, `order_status_logs`, `payments` `A`
 - [x] **T3.2** Generator kode pesanan unik (`SL-YYYYMMDD-NNN`) `A`
 - [x] **T3.3** Service class `OrderPricingService`: hitung harga, pembulatan 0,5 kg, biaya Express `A`
-- [ ] **T3.4** Form pesanan baru untuk admin (cari pelanggan, pilih layanan, berat, total otomatis) `B`
+- [x] **T3.4** Form pesanan baru untuk admin (cari pelanggan, pilih layanan, berat, total otomatis) `B`
+  - Catatan: simpan pesanan dialihkan ke daftar pesanan; pengalihan ke detail menyusul di T3.6.
 - [ ] **T3.5** Daftar pesanan: filter status, pencarian kode/nama, paginasi `B`
 - [ ] **T3.6** Detail pesanan: item, total, riwayat status `B`
 - [x] **T3.7** Ubah status sesuai urutan dan catat ke `order_status_logs` `A` (logika; UI di T3.6)
