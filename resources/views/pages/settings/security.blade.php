@@ -223,8 +223,9 @@ new #[Title('Security settings')] class extends Component {
             </div>
         </form>
 
-        {{-- @chisel-2fa --}}
-        @if ($canManageTwoFactor)
+        {{-- 2FA dan passkey disembunyikan dari MVP (style-guide: Fase 2). Tidak dihapus:
+             hapus "false &&" di bawah untuk menampilkannya kembali. --}}
+        @if (false && $canManageTwoFactor)
             <section class="mt-12">
                 <flux:heading>{{ __('Two-factor authentication') }}</flux:heading>
                 <flux:subheading>{{ __('Manage your two-factor authentication settings') }}</flux:subheading>
@@ -271,7 +272,8 @@ new #[Title('Security settings')] class extends Component {
         {{-- @end-chisel-2fa --}}
 
         {{-- @chisel-passkeys --}}
-        @if ($canManagePasskeys)
+        {{-- Passkey disembunyikan dari MVP. Hapus "false &&" untuk menampilkan kembali. --}}
+        @if (false && $canManagePasskeys)
             <section class="mt-12">
                 <flux:heading>{{ __('Passkeys') }}</flux:heading>
                 <flux:subheading>{{ __('Manage your passkeys for passwordless sign-in') }}</flux:subheading>

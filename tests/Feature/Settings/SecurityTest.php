@@ -45,12 +45,14 @@ class SecurityTest extends TestCase
         $response->assertOk();
 
         /* @chisel-passkeys */
-        $response->assertSee('Passkeys');
-        $response->assertSee('No passkeys yet');
+        // 2FA dan passkey disembunyikan dari MVP (T1.5), jadi halaman pengaturan
+        // tidak lagi menampilkan bagian tersebut.
+        $response->assertDontSee('No passkeys yet');
+        $response->assertDontSee('Manage your passkeys for passwordless sign-in');
         /* @end-chisel-passkeys */
         /* @chisel-2fa */
-        $response->assertSee('Two-factor authentication');
-        $response->assertSee('Enable 2FA');
+        $response->assertDontSee('Two-factor authentication');
+        $response->assertDontSee('Enable 2FA');
         /* @end-chisel-2fa */
     }
 

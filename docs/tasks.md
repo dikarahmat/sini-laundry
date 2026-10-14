@@ -8,21 +8,24 @@ Daftar pekerjaan berurutan. Centang `[x]` kalau sudah selesai. Kerjakan dari ata
 
 ## Tahap 0: Persiapan (P0)
 
-- [ ] **T0.1** Install PHP 8.3+, Composer, Node.js, MySQL, Git (lihat `INSTALL.md`) `A`
-- [ ] **T0.2** Buat project Laravel 13 dengan starter kit Livewire `A`
-- [ ] **T0.3** Buat repository Git dan push ke GitHub, undang semua anggota `A`
-- [ ] **T0.4** Atur `.env` (database, `APP_NAME`, locale `id`) dan timezone `Asia/Jakarta` di `config/app.php` `A`
-- [ ] **T0.5** Pasang token warna dan font sesuai `style-guide.md` `B`
+- [x] **T0.1** Install PHP 8.3+, Composer, Node.js, MySQL, Git (lihat `INSTALL.md`) `A`
+- [x] **T0.2** Buat project Laravel 13 dengan starter kit Livewire `A`
+- [x] **T0.3** Buat repository Git dan push ke GitHub, undang semua anggota `A`
+- [x] **T0.4** Atur `.env` (database, `APP_NAME`, locale `id`) dan timezone `Asia/Jakarta` di `config/app.php` `A`
+- [x] **T0.5** Pasang token warna dan font sesuai `style-guide.md` `B`
 - [ ] **T0.6** Buat file Figma bersama, siapkan halaman per peran `B`
 
 ## Tahap 1: Fondasi (P0)
 
 - [ ] **T1.1** Migrasi dan model: `users` (+ kolom `role`, `phone`), `customers`, `services` `A`
+  - Catatan: kolom `users` selesai (P2); tabel `customers` dan `services` dikerjakan di T2.3 dan T2.1.
 - [ ] **T1.2** Enum `Role` dan `OrderStatus` `A`
-- [ ] **T1.3** Autentikasi: login, registrasi pelanggan, logout, reset password `A`
-- [ ] **T1.4** Middleware/otorisasi berbasis peran (customer, admin, owner) `A`
-- [ ] **T1.5** Layout dasar per peran (pelanggan, admin, owner) `B`
-- [ ] **T1.6** Seeder: akun contoh tiap peran + data layanan awal `A`
+  - Catatan: Enum `Role` selesai (P2); `OrderStatus` dibuat di T3.1.
+- [x] **T1.3** Autentikasi: login, registrasi pelanggan, logout, reset password `A`
+- [x] **T1.4** Middleware/otorisasi berbasis peran (customer, admin, owner) `A`
+- [x] **T1.5** Layout dasar per peran (pelanggan, admin, owner) `B`
+- [x] **T1.6** Seeder: akun contoh tiap peran + data layanan awal `A`
+  - Catatan: akun contoh selesai; data layanan awal menyusul di T2.1.
 
 ## Tahap 2: Master Data (P0)
 

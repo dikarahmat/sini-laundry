@@ -7,13 +7,8 @@ new #[Title('Pesanan Saya')] class extends Component {};
 ?>
 
 <div class="mx-auto w-full max-w-3xl">
-    <flux:heading size="xl">Pesanan Saya</flux:heading>
-    <flux:subheading>Halaman beranda pelanggan.</flux:subheading>
+    <x-page-header title="Pesanan Saya" description="Beranda pelanggan." />
 
-    <div class="mt-6 rounded-2xl border border-ink-300 bg-white p-6 shadow-sm">
-        <p class="text-ink-600">
-            Halaman sementara (placeholder) untuk peran <strong>Pelanggan</strong>.
-            Daftar pesanan aktif, riwayat, dan tombol pesan online akan dibuat pada tahap T5.
-        </p>
-    </div>
+    <x-empty-state icon="archive-box" title="Belum ada pesanan"
+        description="Halaman sementara (placeholder) untuk peran Pelanggan. Daftar pesanan aktif, riwayat, dan tombol pesan online akan dibuat pada tahap T5." />
 </div>
